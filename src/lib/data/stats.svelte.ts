@@ -1,4 +1,8 @@
-import type { Stat, Player } from '$lib/data/definitions';
+import {
+	type Stat,
+	type Player,
+	type Application
+} from '$lib/data/definitions';
 
 const statLinkage = $state<Record<string, string[]>>({
 	Goals: ['Shots', 'Targets'],
@@ -9,88 +13,11 @@ const statLinkage = $state<Record<string, string[]>>({
 });
 
 const stats = $state<Record<string, Stat[]>>({
-	Goals: [
-		{
-			player: 7,
-			time: 57
-		},
-		{
-			player: 7,
-			time: 60
-		},
-		{
-			player: 5,
-			time: 45
-		}
-	],
-	Assists: [
-		{
-			player: 3,
-			time: 57
-		},
-		{
-			player: 8,
-			time: 60
-		}
-	],
-	Shots: [
-		{
-			player: 7,
-			time: 57
-		},
-		{
-			player: 7,
-			time: 60
-		},
-		{
-			player: 5,
-			time: 45
-		},
-		{
-			player: 2,
-			time: 30
-		},
-		{
-			player: 4,
-			time: 50
-		},
-		{
-			player: 9,
-			time: 70
-		}
-	],
-	Targets: [
-		{
-			player: 7,
-			time: 57
-		},
-		{
-			player: 7,
-			time: 60
-		},
-		{
-			player: 5,
-			time: 45
-		},
-		{
-			player: 4,
-			time: 50
-		}
-	],
-	Steals: [
-		{
-			player: 10,
-			time: 57
-		},
-		{
-			player: 7,
-			time: 60
-		},
-		{
-			player: 6,
-			time: 70
-		}
-	]
+	Goals: [],
+	Assists: [],
+	Shots: [],
+	Targets: [],
+	Steals: []
 });
 
 const players = $state<Record<number, Player>>({
@@ -106,7 +33,7 @@ const players = $state<Record<number, Player>>({
 	10: { name: 'John', number: 10 }
 });
 
-const application = $state({
+const application = $state<Application>({
 	metrics: ['Goals', 'Assists', 'Shots', 'Targets', 'Steals'],
 	undo: [],
 

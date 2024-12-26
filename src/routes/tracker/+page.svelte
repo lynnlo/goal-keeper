@@ -1,20 +1,27 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 
-	import { stats, players, application } from '$lib/data/stats.svelte';
-	import type { Player, Stat } from '$lib/stats/definitions';
+	import {
+		stats,
+		players,
+		application,
+		statLinkage
+	} from '$lib/data/stats.svelte';
 
 	import * as Card from '$lib/components/ui/card';
 	import * as Table from '$lib/components/ui/table';
 
 	import Button from '$lib/components/custom/button.svelte';
 
-	const get_stats = (player_id: number) => {
-		let player = players[player_id];
-		let player_stats = application.metrics.reduce((acc, metric) => {
-			acc[metric] = 0;
-			return acc;
-		}, {});
+	const get_stats = (player_number: number) => {
+		let player = players[player_number];
+		let player_stats = application.metrics.reduce(
+			(acc: Record<string, number>, metric) => {
+				acc[metric] = 0;
+				return acc;
+			},
+			{}
+		);
 
 		for (let metric in stats) {
 			stats[metric].forEach((instance) => {
@@ -39,7 +46,13 @@
 	};
 
 	const undo = () => {
-		application.undo.pop()();
+		let undoMetric = application.undo.pop();
+		if (undoMetric) {
+			stats[undoMetric].pop();
+			statLinkage[undoMetric].forEach((linkedMetric) => {
+				stats[linkedMetric].pop();
+			});
+		}
 	};
 </script>
 
@@ -94,7 +107,7 @@
 
 <!--- Stats -->
 <div class="flex flex-col gap-4" style="grid-area: 1 / 5 / 5 / 9;">
-	<Table.Root sc>
+	<Table.Root>
 		<Table.Header>
 			<Table.Row>
 				<Table.Cell>#</Table.Cell>
@@ -105,9 +118,9 @@
 			</Table.Row>
 		</Table.Header>
 		<Table.Body>
-			{#each Object.keys(players) as player_id}
+			{#each Object.keys(players).map(Number) as player_number}
 				<Table.Row>
-					{#each Object.values(get_stats(player_id)) as stat}
+					{#each Object.values(get_stats(player_number)) as stat}
 						<Table.Cell>{stat}</Table.Cell>
 					{/each}
 				</Table.Row>

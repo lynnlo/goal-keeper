@@ -9,6 +9,9 @@ export interface Stat {
 }
 
 export interface Application {
+	metrics: string[];
+	undo: string[];
+
 	state: string;
 	metric: string;
 	player: number;

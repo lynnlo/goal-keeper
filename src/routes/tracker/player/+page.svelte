@@ -34,23 +34,21 @@
 			time: 2
 		});
 
-		application.undo.push(() => {
-			stats[application.metric].pop();
-			statLinkage[application.metric].forEach((linkedMetric) => {
-				stats[linkedMetric].pop();
-			});
-		});
+		application.undo.push(application.metric);
 
 		goto('/tracker');
 	};
 
 	const toggle_sog = () => {
-		application.metric = application.metric === 'shot' ? 'target' : 'shot';
+		application.metric = application.metric === 'Shots' ? 'Targets' : 'Shots';
 	};
 </script>
 
 {#each Object.values(players) as player}
-	<Button title={player.number} onClick={() => track(player.number)} />
+	<Button
+		title={player.number.toString()}
+		onClick={() => track(player.number)}
+	/>
 {/each}
 
 <Button
@@ -60,9 +58,9 @@
 	href="/tracker"
 />
 <Button
-	className={`${application.metric === 'shot' ? '' : 'hidden'} ${application.metric === 'shot' ? '' : 'hidden'}`}
+	className={`${application.metric === 'Shots' || application.metric === 'Targets' ? '' : 'hidden'}`}
 	style="grid-area: 7 / 3 / 9 / 5;"
 	title="SOG"
-	bg_color="zinc"
+	bg_color={application.metric === 'Targets' ? 'green' : 'zinc'}
 	onClick={toggle_sog}
 />
