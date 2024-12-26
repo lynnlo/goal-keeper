@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import * as Card from '$lib/components/ui/card';
-
+	
+	export let className = '';
 	export let style = '';
 	export let title = '';
 	export let bg_color: keyof typeof color_classes = 'zinc';
@@ -27,7 +28,7 @@
 	};
 </script>
 
-<Card.Root class={`touch-effects cursor-pointer select-none`} {style}>
+<Card.Root class={`touch-effects cursor-pointer select-none ${className}`} {style}>
 	<button class={`w-full h-full ${color_classes[bg_color]}`} on:click={onClick}>
 		<Card.Header class="p-0">
 			<Card.Title>
