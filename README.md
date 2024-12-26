@@ -8,10 +8,18 @@ Currently in beta, goal-keeper is meant to serve as an simple and sastisfying al
 
 To run just git clone the folder, install dependencies and run.
 
+If you opt to use another package manager, please delete the pnpm lock file first.
+
+
 ```bash
 # clone directory
 git clone https://github.com/lynnlo/goal-keeper.git
 
-# create a new project in my-app
-npx sv create my-app
+cd goal-keeper
+
+# install dep (pnpm reccomended)
+pnpm i
+
+# run
+vite dev
 ```
