@@ -4,6 +4,6 @@ export interface Player {
 }
 
 export interface Stat {
-	player: Player;
+	player: number; // player ref
 	time: number;
 }

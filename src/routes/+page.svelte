@@ -6,40 +6,40 @@
 <main>
 	<div class="w-full h-screen layout p-2 xl:hidden">
 		<Button
-			style="grid-area: 1 / 1 / 3 / 3;"
+			style="grid-area: 1 / 1 / 5 / 5;"
 			title="start"
 			bg_color="green"
 			href="/tracker"
 		>
-			Start a New Game SSS
+			Start a Game
 		</Button>
-		<Button style="grid-area: 1 / 3 / 3 / 5;" title="config" bg_color="yellow">
+		<Button style="grid-area: 1 / 5 / 5 / 9;" title="config" bg_color="yellow">
 			Change Settings
 		</Button>
-		<Button style="grid-area: 3 / 1 / 5 / 3;" title="load" bg_color="blue">
-			Load a Previous Game
+		<Button style="grid-area: 5 / 1 / 9 / 5;" title="load" bg_color="blue">
+			Load a Game
 		</Button>
-		<Button style="grid-area: 3 / 3 / 5 / 5;" title="stats" bg_color="purple">
+		<Button style="grid-area: 5 / 5 / 9 / 9;" title="stats" bg_color="purple">
 			See Statistics
 		</Button>
 	</div>
 
 	<div class="w-full h-screen layout p-8">
 		<Button
-			style="grid-area: 2 / 2 / 3 / 3;"
+			style="grid-area: 2 / 2 / 5 / 5;"
 			title="start"
 			bg_color="green"
 			href="/tracker"
 		>
-			Start a New Game
+			Start a Game
 		</Button>
-		<Button style="grid-area: 2 / 3 / 3 / 4;" title="config" bg_color="yellow">
+		<Button style="grid-area: 2 / 5 / 5 / 8;" title="config" bg_color="yellow">
 			Change Settings
 		</Button>
-		<Button style="grid-area: 3 / 2 / 4 / 3;" title="load" bg_color="blue">
-			Load a Previous Game
+		<Button style="grid-area: 5 / 2 / 8 / 5;" title="load" bg_color="blue">
+			Load a Game
 		</Button>
-		<Button style="grid-area: 3 / 3 / 4 / 4;" title="stats" bg_color="purple">
+		<Button style="grid-area: 5 / 5 / 8 / 8;" title="stats" bg_color="purple">
 			See Statistics
 		</Button>
 	</div>

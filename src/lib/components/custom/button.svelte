@@ -27,13 +27,13 @@
 	};
 </script>
 
-<Card.Root class="touch-effects cursor-pointer select-none" {style}>
+<Card.Root class={`touch-effects cursor-pointer select-none`} {style}>
 	<button class={`w-full h-full ${color_classes[bg_color]}`} on:click={onClick}>
-		<Card.Header>
+		<Card.Header class="p-0">
 			<Card.Title>
 				<span class="text-4xl xl:text-8xl">{title}</span>
 			</Card.Title>
-			<Card.Description class="text-2xl">
+			<Card.Description class="text-md xl:text-3xl">
 				<slot />
 			</Card.Description>
 		</Card.Header>
