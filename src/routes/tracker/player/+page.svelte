@@ -2,12 +2,7 @@
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 
-	import {
-		statLinkage,
-		stats,
-		players,
-		application
-	} from '$lib/data/stats.svelte';
+	import { stats, players, application } from '$lib/data/stats.svelte';
 
 	import Button from '$lib/components/custom/button.svelte';
 
@@ -21,7 +16,7 @@
 		application.state = 'idle';
 
 		// Push all linked metrics, emaple goals -> targets -> shots
-		statLinkage[application.metric].forEach((linkedMetric) => {
+		application.metricLinkage[application.metric].forEach((linkedMetric) => {
 			console.log('linkedMetric', linkedMetric);
 			stats[linkedMetric].push({
 				player: player_number,
@@ -38,10 +33,6 @@
 
 		goto('/tracker');
 	};
-
-	const toggle_sog = () => {
-		application.metric = application.metric === 'Shots' ? 'Targets' : 'Shots';
-	};
 </script>
 
 {#each Object.values(players) as player}
@@ -57,10 +48,16 @@
 	bg_color="red"
 	href="/tracker"
 />
-<Button
-	className={`${application.metric === 'Shots' || application.metric === 'Targets' ? '' : 'hidden'}`}
-	style="grid-area: 7 / 3 / 9 / 5;"
-	title="SOG"
-	bg_color={application.metric === 'Targets' ? 'green' : 'zinc'}
-	onClick={toggle_sog}
-/>
+
+<div class="flex" style="grid-area: 7 / 3 / 9 / 9;">
+	{#each Object.keys(application.metricToggles) as metric}
+		<Button
+			className={`w-1/4 ${application.metric === metric || application.metricToggles[application.metric] ? '' : 'hidden'}`}
+			title={metric}
+			bg_color={application.metric === metric ? 'green' : 'zinc'}
+			onClick={() => {
+				application.metric = metric;
+			}}
+		/>
+	{/each}
+</div>

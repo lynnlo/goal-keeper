@@ -1,15 +1,12 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 
-	import {
-		stats,
-		players,
-		application,
-		statLinkage
-	} from '$lib/data/stats.svelte';
+	import { stats, players, application } from '$lib/data/stats.svelte';
 
 	import * as Card from '$lib/components/ui/card';
 	import * as Table from '$lib/components/ui/table';
+
+	import { GridManager } from '$lib/gridManager';
 
 	import Button from '$lib/components/custom/button.svelte';
 
@@ -49,40 +46,35 @@
 		let undoMetric = application.undo.pop();
 		if (undoMetric) {
 			stats[undoMetric].pop();
-			statLinkage[undoMetric].forEach((linkedMetric) => {
+			application.metricLinkage[undoMetric].forEach((linkedMetric) => {
 				stats[linkedMetric].pop();
 			});
 		}
 	};
+
+	const gridManager = new GridManager(9, 9);
+	gridManager.addItem('.table', 4, 4, 5, 1);
+	gridManager.addItem('.control', 1, 7, 5, 2);
+	application.metrics.forEach((metric, index) => {
+		gridManager.addItem(metric, 2, 3);
+	});
 </script>
 
 <!--- Soccer -->
-<Button
-	style="grid-area: 1 / 1 / 3 / 3;"
-	title="goal"
-	bg_color="green"
-	onClick={() => {
-		track('Goals');
-	}}
-/>
-<Button
-	style="grid-area: 1 / 3 / 3 / 5;"
-	title="assist"
-	bg_color="blue"
-	onClick={() => {
-		track('Assists');
-	}}
-/>
-<Button
-	style="grid-area: 3 / 1 / 5 / 5;"
-	title="shot"
-	bg_color="purple"
-	onClick={() => {
-		track('Shots');
-	}}
-/>
+{#each gridManager.grid.items as element}
+	{#if !element.name.startsWith('.')}
+		<Button
+			style={`grid-area: ${element.y + 1} / ${element.x + 1} / ${element.y + element.height + 1} / ${element.x + element.width + 1};`}
+			title={element.name}
+			bg_color="rand"
+			onClick={() => {
+				track(element.name);
+			}}
+		/>
+	{/if}
+{/each}
 
-<Button style="grid-area: 5 / 1 / 7 / 3;" title="save" bg_color="yellow" />
+<Button style="grid-area: 7 / 3 / 9 / 5;" title="save" bg_color="yellow" />
 <Button
 	style="grid-area: 7 / 1 / 9 / 3;"
 	title="exit"
@@ -90,19 +82,10 @@
 	href="/"
 />
 <Button
-	style="grid-area: 7 / 3 / 9 / 5;"
+	style="grid-area: 7 / 5 / 9 / 7;"
 	title="undo"
 	bg_color="zinc"
 	onClick={undo}
-/>
-
-<Button
-	style="grid-area: 5 / 5 / 9 / 9;"
-	title="steal"
-	bg_color="yellow"
-	onClick={() => {
-		track('Steals');
-	}}
 />
 
 <!--- Stats -->

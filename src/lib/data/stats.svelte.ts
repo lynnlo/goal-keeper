@@ -4,20 +4,16 @@ import {
 	type Application
 } from '$lib/data/definitions';
 
-const statLinkage = $state<Record<string, string[]>>({
-	Goals: ['Shots', 'Targets'],
-	Assists: [],
-	Shots: [],
-	Targets: ['Shots'],
-	Steals: []
-});
-
 const stats = $state<Record<string, Stat[]>>({
 	Goals: [],
 	Assists: [],
 	Shots: [],
-	Targets: [],
-	Steals: []
+	ShotsOnGoal: [],
+	Steals: [],
+	
+	ShotsAgainst: [],
+	Saves: [],
+	GoalsAgainst: []
 });
 
 const players = $state<Record<number, Player>>({
@@ -34,12 +30,24 @@ const players = $state<Record<number, Player>>({
 });
 
 const application = $state<Application>({
-	metrics: ['Goals', 'Assists', 'Shots', 'Targets', 'Steals'],
+	metrics: ['Goals', 'Assists', 'Shots', 'ShotsOnGoal', 'Steals'],
 	undo: [],
+
+	metricLinkage: {
+		Goals: ['Shots', 'ShotsOnGoal'],
+		Assists: [],
+		Shots: [],
+		ShotsOnGoal: ['Shots'],
+		Steals: []
+	},
+	metricToggles: {
+		Shots: 'ShotsOnGoal',
+		ShotsOnGoal: 'Shots'
+	},
 
 	state: 'idle',
 	metric: '',
 	player: 0
 });
 
-export { statLinkage, stats, players, application };
+export { stats, players, application };

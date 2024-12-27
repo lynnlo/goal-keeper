@@ -10,8 +10,10 @@ export interface Stat {
 
 export interface Application {
 	metrics: string[];
-	undo: string[];
+	metricLinkage: Record<string, string[]>; // goals -> [shots, targets]
+	metricToggles: Record<string, string>; // shots <-> targets
 
+	undo: string[];
 	state: string;
 	metric: string;
 	player: number;
