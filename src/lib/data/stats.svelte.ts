@@ -4,17 +4,7 @@ import {
 	type Application
 } from '$lib/data/definitions';
 
-const stats = $state<Record<string, Stat[]>>({
-	Goals: [],
-	Assists: [],
-	Shots: [],
-	ShotsOnGoal: [],
-	Steals: [],
-	
-	ShotsAgainst: [],
-	Saves: [],
-	GoalsAgainst: []
-});
+const stats = $state<Record<string, Stat[]>>({});
 
 const players = $state<Record<number, Player>>({
 	1: { name: 'Alice', number: 1 },
@@ -26,28 +16,54 @@ const players = $state<Record<number, Player>>({
 	7: { name: 'Doe', number: 7 },
 	8: { name: 'Grace', number: 8 },
 	9: { name: 'Hank', number: 9 },
-	10: { name: 'John', number: 10 }
+	10: { name: 'John', number: 0 }
 });
 
 const application = $state<Application>({
-	metrics: ['Goals', 'Assists', 'Shots', 'ShotsOnGoal', 'Steals'],
-	undo: [],
-
+	metrics: [
+		'Goals',
+		'Assists',
+		'Shots',
+		'SOG',
+		'Steals',
+		'Saves',
+		'GoalsA',
+		'ShotsA'
+	],
 	metricLinkage: {
-		Goals: ['Shots', 'ShotsOnGoal'],
-		Assists: [],
-		Shots: [],
-		ShotsOnGoal: ['Shots'],
-		Steals: []
+		Goals: ['Shots', 'SOG'],
+		SOG: ['Shots']
 	},
 	metricToggles: {
-		Shots: 'ShotsOnGoal',
-		ShotsOnGoal: 'Shots'
+		Shots: 'SOG',
+		SOG: 'Shots'
+	},
+	metricButtons: {
+		SOG: {
+			hidden: true
+		},
+		Steals: {
+			size: [4, 2]
+		}
 	},
 
 	state: 'idle',
 	metric: '',
-	player: 0
+	player: 0,
+	undo: []
 });
 
+const onLoad = () => {
+	if (Object.keys(stats).length !== application.metrics.length) {
+		application.metrics.forEach((metric) => {
+			if (!stats[metric]) {
+				stats[metric] = [];
+			}
+		});
+	}
+
+	console.log(stats);
+};
+
+onLoad();
 export { stats, players, application };

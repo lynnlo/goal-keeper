@@ -9,6 +9,7 @@
 	import { GridManager } from '$lib/gridManager';
 
 	import Button from '$lib/components/custom/button.svelte';
+	import type { StatButton } from '$lib/data/definitions';
 
 	const get_stats = (player_number: number) => {
 		let player = players[player_number];
@@ -53,10 +54,19 @@
 	};
 
 	const gridManager = new GridManager(9, 9);
-	gridManager.addItem('.table', 4, 4, 5, 1);
-	gridManager.addItem('.control', 1, 7, 5, 2);
+	gridManager.addItem('.table', 4, 4, 4, 0);
+	gridManager.addItem('.control', 4, 2, 0, 6);
 	application.metrics.forEach((metric, index) => {
-		gridManager.addItem(metric, 2, 3);
+		let button: StatButton = application.metricButtons[metric];
+		if (!button) {
+			button = {
+				hidden: false,
+				size: [2, 2]
+			};
+		}
+
+		if (!button.hidden && button.size)
+			gridManager.addItem(metric, button.size[0], button.size[1]);
 	});
 </script>
 
@@ -74,15 +84,15 @@
 	{/if}
 {/each}
 
-<Button style="grid-area: 7 / 3 / 9 / 5;" title="save" bg_color="yellow" />
+<Button style="grid-area: 7 / 2 / 9 / 4;" title="save" bg_color="yellow" />
 <Button
-	style="grid-area: 7 / 1 / 9 / 3;"
+	style="grid-area: 7 / 1 / 9 / 2;"
 	title="exit"
 	bg_color="red"
 	href="/"
 />
 <Button
-	style="grid-area: 7 / 5 / 9 / 7;"
+	style="grid-area: 7 / 4 / 9 / 5;"
 	title="undo"
 	bg_color="zinc"
 	onClick={undo}

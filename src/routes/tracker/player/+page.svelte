@@ -16,13 +16,14 @@
 		application.state = 'idle';
 
 		// Push all linked metrics, emaple goals -> targets -> shots
-		application.metricLinkage[application.metric].forEach((linkedMetric) => {
-			console.log('linkedMetric', linkedMetric);
-			stats[linkedMetric].push({
-				player: player_number,
-				time: 2
+		if (application.metricLinkage[application.metric])
+			application.metricLinkage[application.metric].forEach((linkedMetric) => {
+				console.log('linkedMetric', linkedMetric);
+				stats[linkedMetric].push({
+					player: player_number,
+					time: 2
+				});
 			});
-		});
 
 		stats[application.metric].push({
 			player: player_number,
@@ -43,16 +44,16 @@
 {/each}
 
 <Button
-	style="grid-area: 7 / 1 / 9 / 3;"
+	style="grid-area: 7 / 1 / 9 / 2;"
 	title="back"
 	bg_color="red"
 	href="/tracker"
 />
 
-<div class="flex" style="grid-area: 7 / 3 / 9 / 9;">
+<div class="flex" style="grid-area: 7 / 2 / 9 / 7;">
 	{#each Object.keys(application.metricToggles) as metric}
 		<Button
-			className={`w-1/4 ${application.metric === metric || application.metricToggles[application.metric] ? '' : 'hidden'}`}
+			className={`w-1/4 ${application.metric === metric || application.metricToggles[application.metric] == metric ? '' : 'hidden'}`}
 			title={metric}
 			bg_color={application.metric === metric ? 'green' : 'zinc'}
 			onClick={() => {
