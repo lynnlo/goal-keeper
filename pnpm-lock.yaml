@@ -14,9 +14,6 @@ dependencies:
   '@tailwindcss/typography':
     specifier: ^0.5.15
     version: 0.5.15(tailwindcss@3.4.17)
-  svelte-grid:
-    specifier: ^5.1.2
-    version: 5.1.2
   uuid:
     specifier: ^11.0.3
     version: 11.0.3
@@ -2622,10 +2619,6 @@ packages:
       postcss-scss: 4.0.9(postcss@8.4.49)
       svelte: 5.15.0
     dev: true
-
-  /svelte-grid@5.1.2:
-    resolution: {integrity: sha512-Suwgb+L3LALhTyA7z4vn87UOJ+xBY6EeKa6MdWqDv/lZOtQgIZ21ry/I6txIn9IC0p8of4AiOXupkSMcZ+DEug==}
-    dev: false
 
   /svelte-sonner@0.3.28(svelte@5.15.0):
     resolution: {integrity: sha512-K3AmlySeFifF/cKgsYNv5uXqMVNln0NBAacOYgmkQStLa/UoU0LhfAACU6Gr+YYC8bOCHdVmFNoKuDbMEsppJg==}
