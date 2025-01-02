@@ -6,18 +6,18 @@ import {
 
 const stats = $state<Record<string, Stat[]>>({});
 
-const players = $state<Record<number, Player>>({
-	1: { name: 'Alice', number: 1 },
-	2: { name: 'Bob', number: 2 },
-	3: { name: 'Charlie', number: 3 },
-	4: { name: 'David', number: 4 },
-	5: { name: 'Eve', number: 5 },
-	6: { name: 'Frank', number: 6 },
-	7: { name: 'Doe', number: 7 },
-	8: { name: 'Grace', number: 8 },
-	9: { name: 'Hank', number: 9 },
-	10: { name: 'John', number: 0 }
-});
+const players = $state<Player[]>([
+	{ name: 'Alice', number: 1 },
+	{ name: 'Bob', number: 2 },
+	{ name: 'Charlie', number: 3 },
+	{ name: 'David', number: 4 },
+	{ name: 'Eve', number: 5 },
+	{ name: 'Frank', number: 6 },
+	{ name: 'Doe', number: 7 },
+	{ name: 'Grace', number: 8 },
+	{ name: 'Hank', number: 9 },
+	{ name: 'John', number: 0 }
+]);
 
 const application = $state<Application>({
 	metrics: [
@@ -61,8 +61,6 @@ const onLoad = () => {
 			}
 		});
 	}
-
-	console.log(stats);
 };
 
 onLoad();

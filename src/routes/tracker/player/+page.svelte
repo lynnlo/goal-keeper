@@ -18,7 +18,6 @@
 		// Push all linked metrics, emaple goals -> targets -> shots
 		if (application.metricLinkage[application.metric])
 			application.metricLinkage[application.metric].forEach((linkedMetric) => {
-				console.log('linkedMetric', linkedMetric);
 				stats[linkedMetric].push({
 					player: player_number,
 					time: 2
